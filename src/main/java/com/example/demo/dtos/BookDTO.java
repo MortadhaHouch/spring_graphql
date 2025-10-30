@@ -1,4 +1,10 @@
 package com.example.demo.dtos;
 
-public record BookDTO() {
+import java.util.Date;
+
+public record BookDTO(
+        String title,
+        String summary,
+        Date publishedDate
+) {
 }

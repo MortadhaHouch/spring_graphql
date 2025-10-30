@@ -33,4 +33,11 @@ public class Author {
     public void preUpdate() {
         updatedAt = new Date();
     }
+    public Author(
+            String name,
+            Integer age,
+            String address
+    ){
+
+    }
 }

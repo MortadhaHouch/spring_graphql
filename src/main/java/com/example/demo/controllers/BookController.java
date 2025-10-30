@@ -1,8 +1,10 @@
 package com.example.demo.controllers;
 
 
+import com.example.demo.dtos.BookDTO;
 import com.example.demo.models.Book;
 import com.example.demo.repositories.BookRepo;
+import com.example.demo.services.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
@@ -16,17 +18,25 @@ import java.util.UUID;
 @Controller
 public class BookController {
     @Autowired
-    private BookRepo bookRepo;
+    private BookService bookService;
     @QueryMapping
     public List<Book> findAll() {
-        return bookRepo.findAll();
+        return bookService.findAll();
     }
     @QueryMapping
     public Optional<Book> findById(@Argument UUID id){
-        return bookRepo.findById(id);
+        return bookService.findById(id);
     }
     @MutationMapping
-    public Book createBook(@Argument Book book){
-        return bookRepo.save(book);
+    public Book createBook(@Argument BookDTO bookDTO){
+        return bookService.create(bookDTO);
+    }
+    @MutationMapping
+    public Book updateBook(@Argument BookDTO bookDTO, @Argument UUID id){
+        return  bookService.update(bookDTO,id);
+    }
+    @MutationMapping
+    public Boolean deleteBook(@Argument UUID id){
+        return bookService.delete(id);
     }
 }
